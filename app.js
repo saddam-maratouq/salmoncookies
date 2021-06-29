@@ -1,458 +1,102 @@
-"use strict" ;
+'use strict';
+let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+let container = document.getElementById('container');
+let tableEl = document.createElement('table');
+container.appendChild(tableEl);
 
-// let syatel = {
+let shops = [];
+function Shop(shopName, min, max, avg) {
+    this.shopName = shopName;
+    this.minc = min;
+    this.maxc = max;
+    this.avgCookies = avg;
+    this.randCusts = [];
+    this.avgCookiesPerH = [];
+    this.total = 0;
+    shops.push(this);
+}
+Shop.prototype.calcRandCustPerH = function () {
+    for (let i = 0; i < hours.length; i++) {
+        let min = Math.ceil(this.minc);
+        let max = Math.floor(this.maxc);
+        let randCust = Math.floor(Math.random() * (max - min + 1) + min);
+        this.randCusts.push(randCust);
+    }
+}
+Shop.prototype.calAvgCookiesPerH = function () {
+    for (let i = 0; i < hours.length; i++) {
+        this.avgCookiesPerH[i] = Math.ceil(this.randCusts[i] * this.avgCookies);
+        this.total = this.total + this.avgCookiesPerH[i];
+    }
+}
+Shop.prototype.render = function () {
+    let trEl = document.createElement('tr');
+    let tdEl = document.createElement('td');
+    tdEl.textContent = this.shopName;
+    trEl.appendChild(tdEl);
+    for (let i = 0; i < hours.length; i++) {
+        let tdEl = document.createElement('td');
+        tdEl.textContent = this.avgCookiesPerH[i];
+        trEl.appendChild(tdEl);
+    }
+    let tdTotalEl = document.createElement('td');
+    tdTotalEl.textContent = this.total;
+    trEl.appendChild(tdTotalEl);
+    tableEl.appendChild(trEl);
 
-// minc : 23,
+}
 
-// maxc : 65,
-
-// avg : 1.2,
-
-// custph: [ ],
-
-// cokkiesph :[],
-
-// getcustph: function(minc,maxc){
-// for(let i=0; i<=14 ; i++){
-// this.custph[i] = Math.floor(Math.random() * (max - min + 1) + min);
-// console.log(this.custph);
-// }}
-// }
-
-// // fisrst step end ////////////////////////////////////////////////
-
-
-// getcokkiesph: function (tofcookie){
-//     for(let i=0; i<=14 ; i++){
-//     this.cokkiesph[i]= Math.floor(this.custph[i]*tofcookie);
-//     }
-// }
-
-// // secound step end //////////////////////////////////////////////
-
-
-
-
-
-
-// render: function () {
-//     let divEl = document.getElementById('cookiessale');
-//     let articleEl = document.createElement('article');
-//     divEl.appendChild(articleEl);
-
-//     let h2El = document.createElement('h2');
-//     articleEl.appendChild(h2El);
-//     h2El.textContent = this.name;
-
-//     let pEl = document.createElement('p');
-//     pEl.textContent = 'the total of cookies phrushed for each hour'
-//     articleEl.appendChild(pEl);
-
-//     let ulEl = document.createElement('ul');
-//     let x=6;
-//     let y=1
-//     let liEl=""
-//     for (let i = 0; i < this.cokkiesph.length ; i++) {
-//      let liEl = document.createElement('li');
-//     if(i<=5){
+function createTableHeader() {
+    let trEl = document.createElement('tr')
+    let thShopNameEl = document.createElement('th')
+    trEl.appendChild(thShopNameEl);
+    thShopNameEl.textContent = 'shop name';
+    for (let i = 0; i < hours.length; i++) {
+        let thEl = document.createElement('th');
+        thEl.textContent = hours[i];
+        trEl.appendChild(thEl);
+    }
+    let thDailyTotalEl = document.createElement('th')
+    trEl.appendChild(thDailyTotalEl);
+    thDailyTotalEl.textContent = 'Daily Location Total';
+    tableEl.appendChild(trEl);
+}
+function createFooter() {
+    let tfootEl = document.createElement('tfoot');
+    let tdEl = document.createElement('td');
+    tdEl.textContent = 'Totals';
+    tfootEl.appendChild(tdEl);
+    tableEl.appendChild(tfootEl);
+    let megaTotal = 0;
     
-//         liEl.textContent = `${x} am: ${this.cokkiesph}` 
-//         x++;
-//     }else if(i==6) {
-    
-//         liEl.textContent = `${12} pm: ${this.cokkiesph}` 
-//     }
-//     else if(i>7 ){
-//     liEl.textContent = `${y} pm: ${this.cokkiesph}` 
-//     }  
-//         ulEl.appendChild(liEl);
-
-//     }
-//     articleEl.appendChild(ulEl);
-
-
-//     let imgEl = document.createElement('img');
-//     imgEl.setAttribute('src', this.image);
-// articleEl.appendChild(imgEl);
-// };
-
-  
-
-
-//     syatel.getcustph(23,65);
-//     syatel.getcokkiesph(syatel.avg);
-//     syatel.render();
-
-
-
-
-
-
-
-
-
-//     let Tokyo = {
-
-//         minc : 3,
+    for (let h = 0; h < hours.length; h++) {
+        let tdEl = document.createElement('td');
+        let sum = 0;
         
-//         maxc : 24,
-        
-//         avg : 1.2 ,
-        
-//         custph: [ ],
-        
-//         cokkiesph :[],
-        
-//         getcustph: function(minc,maxc){
-//         for(let i=0; i<=14 ; i++){
-//         this.custph[i] = Math.floor(Math.random() * (max - min + 1) + min);
-//         console.log(this.custph);
-//         }}
-//         }
-        
-//         // fisrst step end ////////////////////////////////////////////////
-        
-        
-//         getcokkiesph: function (tofcookie){
-//             for(let i=0; i<=14 ; i++){
-//             this.cokkiesph[i]= Math.floor(this.custph[i]*tofcookie);
-//             }
-//         }
-        
-//         // secound step end //////////////////////////////////////////////
-        
-        
-        
-        
-        
-        
-//         render: function () {
-//             let divEl = document.getElementById('cookiessale');
-//             let articleEl = document.createElement('article');
-//             divEl.appendChild(articleEl);
-        
-//             let h2El = document.createElement('h2');
-//             articleEl.appendChild(h2El);
-//             h2El.textContent = this.name;
-        
-//             let pEl = document.createElement('p');
-//             pEl.textContent = 'the total of cookies phrushed for each hour'
-//             articleEl.appendChild(pEl);
-        
-//             let ulEl = document.createElement('ul');
-//             let x=6;
-//             let y=1
-//             let liEl=""
-//             for (let i = 0; i < this.cokkiesph.length ; i++) {
-//              let liEl = document.createElement('li');
-//             if(i<=5){
+        for (let s = 0; s < shops.length; s++) {
             
-//                 liEl.textContent = `${x} am: ${this.cokkiesph}` 
-//                 x++;
-//             }else if(i==6) {
-            
-//                 liEl.textContent = `${12} pm: ${this.cokkiesph}` 
-//             }
-//             else if(i>7 ){
-//             liEl.textContent = `${y} pm: ${this.cokkiesph}` 
-//             }  
-//                 ulEl.appendChild(liEl);
-        
-//             }
-//             articleEl.appendChild(ulEl);
-        
-        
-//             let imgEl = document.createElement('img');
-//             imgEl.setAttribute('src', this.image);
-//         articleEl.appendChild(imgEl);
-//         };
-        
-          
-        
-        
-//             Tokyo.getcustph(3,24);
-//             Tokyo.getcokkiesph(Tokyo.avg);
-//             Tokyo.render();
-        
+            sum = sum + shops[s].avgCookiesPerH[h];
+        }
+        megaTotal += sum;
+        tdEl.textContent = sum;
+        tfootEl.appendChild(tdEl);
+    }
+    let totalTdEl = document.createElement('td');
+    totalTdEl.textContent = megaTotal;
+    tfootEl.appendChild(totalTdEl);
+}
+let seattle = new Shop('Seattle', 23, 65, 6.3);
+let tokyo = new Shop('Tokyo', 3, 24, 1.2);
+let dubai = new Shop('Dubai', 11, 38, 3.7);
+let paris = new Shop('Paris', 20, 38, 2.3);
+let lima = new Shop('Lima', 2, 16, 4.6);
 
-
-
-
-
-
-
-//             let Dubai = {
-
-//                 minc : 11,
-                
-//                 maxc : 38,
-                
-//                 avg : 3.7 ,
-                
-//                 custph: [ ],
-                
-//                 cokkiesph :[],
-                
-//                 getcustph: function(minc,maxc){
-//                 for(let i=0; i<=14 ; i++){
-//                 this.custph[i] = Math.floor(Math.random() * (max - min + 1) + min);
-//                 console.log(this.custph);
-//                 }}
-//                 }
-                
-//                 // fisrst step end ////////////////////////////////////////////////
-                
-                
-//                 getcokkiesph: function (tofcookie){
-//                     for(let i=0; i<=14 ; i++){
-//                     this.cokkiesph[i]= Math.floor(this.custph[i]*tofcookie);
-//                     }
-//                 }
-                
-//                 // secound step end //////////////////////////////////////////////
-                
-                
-                
-                
-                
-                
-//                 render: function () {
-//                     let divEl = document.getElementById('cookiessale');
-//                     let articleEl = document.createElement('article');
-//                     divEl.appendChild(articleEl);
-                
-//                     let h2El = document.createElement('h2');
-//                     articleEl.appendChild(h2El);
-//                     h2El.textContent = this.name;
-                
-//                     let pEl = document.createElement('p');
-//                     pEl.textContent = 'the total of cookies phrushed for each hour'
-//                     articleEl.appendChild(pEl);
-                
-//                     let ulEl = document.createElement('ul');
-//                     let x=6;
-//                     let y=1
-//                     let liEl=""
-//                     for (let i = 0; i < this.cokkiesph.length ; i++) {
-//                      let liEl = document.createElement('li');
-//                     if(i<=5){
-                    
-//                         liEl.textContent = `${x} am: ${this.cokkiesph}` 
-//                         x++;
-//                     }else if(i==6) {
-                    
-//                         liEl.textContent = `${12} pm: ${this.cokkiesph}` 
-//                     }
-//                     else if(i>7 ){
-//                     liEl.textContent = `${y} pm: ${this.cokkiesph}` 
-//                     }  
-//                         ulEl.appendChild(liEl);
-                
-//                     }
-//                     articleEl.appendChild(ulEl);
-                
-                
-//                     let imgEl = document.createElement('img');
-//                     imgEl.setAttribute('src', this.image);
-//                 articleEl.appendChild(imgEl);
-//                 };
-                
-                  
-                
-                
-//                     Dubai.getcustph(11,38);
-//                     Dubai.getcokkiesph(Dubai.avg);
-//                     Dubai.render();
-                
-
-
-
-
-
-
-
-
-
-
-
-                    
-//             let Paris	 = {
-
-//                 minc : 20,
-                
-//                 maxc : 38,
-                
-//                 avg : 2.3 ,
-                
-//                 custph: [ ],
-                
-//                 cokkiesph :[],
-                
-//                 getcustph: function(minc,maxc){
-//                 for(let i=0; i<=14 ; i++){
-//                 this.custph[i] = Math.floor(Math.random() * (max - min + 1) + min);
-//                 console.log(this.custph);
-//                 }}
-//                 }
-                
-//                 // fisrst step end ////////////////////////////////////////////////
-                
-                
-//                 getcokkiesph: function (tofcookie){
-//                     for(let i=0; i<=14 ; i++){
-//                     this.cokkiesph[i]= Math.floor(this.custph[i]*tofcookie);
-//                     }
-//                 }
-                
-//                 // secound step end //////////////////////////////////////////////
-                
-                
-                
-                
-                
-                
-//                 render: function () {
-//                     let divEl = document.getElementById('cookiessale');
-//                     let articleEl = document.createElement('article');
-//                     divEl.appendChild(articleEl);
-                
-//                     let h2El = document.createElement('h2');
-//                     articleEl.appendChild(h2El);
-//                     h2El.textContent = this.name;
-                
-//                     let pEl = document.createElement('p');
-//                     pEl.textContent = 'the total of cookies phrushed for each hour'
-//                     articleEl.appendChild(pEl);
-                
-//                     let ulEl = document.createElement('ul');
-//                     let x=6;
-//                     let y=1
-//                     let liEl=""
-//                     for (let i = 0; i < this.cokkiesph.length ; i++) {
-//                      let liEl = document.createElement('li');
-//                     if(i<=5){
-                    
-//                         liEl.textContent = `${x} am: ${this.cokkiesph}` 
-//                         x++;
-//                     }else if(i==6) {
-                    
-//                         liEl.textContent = `${12} pm: ${this.cokkiesph}` 
-//                     }
-//                     else if(i>7 ){
-//                     liEl.textContent = `${y} pm: ${this.cokkiesph}` 
-//                     }  
-//                         ulEl.appendChild(liEl);
-                
-//                     }
-//                     articleEl.appendChild(ulEl);
-                
-                
-//                     let imgEl = document.createElement('img');
-//                     imgEl.setAttribute('src', this.image);
-//                 articleEl.appendChild(imgEl);
-//                 };
-                
-                  
-                
-                
-//                     Paris.getcustph(20,38);
-//                     Paris.getcokkiesph(Paris.avg);
-//                     Paris.render();
-
-
-
-
-
-
-
-                    
-//             let Lima = {
-
-//                 minc : 2,
-                
-//                 maxc : 16,
-                
-//                 avg : 4.6 ,
-                
-//                 custph: [ ],
-                
-//                 cokkiesph :[],
-                
-//                 getcustph: function(minc,maxc){
-//                 for(let i=0; i<=14 ; i++){
-//                 this.custph[i] = Math.floor(Math.random() * (max - min + 1) + min);
-//                 console.log(this.custph);
-//                 }}
-//                 }
-                
-//                 // fisrst step end ////////////////////////////////////////////////
-                
-                
-//                 getcokkiesph: function (tofcookie){
-//                     for(let i=0; i<=14 ; i++){
-//                     this.cokkiesph[i]= Math.floor(this.custph[i]*tofcookie);
-//                     }
-//                 }
-                
-//                 // secound step end //////////////////////////////////////////////
-                
-                
-                
-                
-                
-                
-//                 render: function () {
-//                     let divEl = document.getElementById('cookiessale');
-//                     let articleEl = document.createElement('article');
-//                     divEl.appendChild(articleEl);
-                
-//                     let h2El = document.createElement('h2');
-//                     articleEl.appendChild(h2El);
-//                     h2El.textContent = this.name;
-                
-//                     let pEl = document.createElement('p');
-//                     pEl.textContent = 'the total of cookies phrushed for each hour'
-//                     articleEl.appendChild(pEl);
-                
-//                     let ulEl = document.createElement('ul');
-//                     let x=6;
-//                     let y=1
-//                     let liEl=""
-//                     for (let i = 0; i < this.cokkiesph.length ; i++) {
-//                      let liEl = document.createElement('li');
-//                     if(i<=5){
-                    
-//                         liEl.textContent = `${x} am: ${this.cokkiesph}` 
-//                         x++;
-//                     }else if(i==6) {
-                    
-//                         liEl.textContent = `${12} pm: ${this.cokkiesph}` 
-//                     }
-//                     else if(i>7 ){
-//                     liEl.textContent = `${y} pm: ${this.cokkiesph}` 
-//                     }  
-//                         ulEl.appendChild(liEl);
-                
-//                     }
-//                     articleEl.appendChild(ulEl);
-                
-                
-//                     let imgEl = document.createElement('img');
-//                     imgEl.setAttribute('src', this.image);
-//                 articleEl.appendChild(imgEl);
-//                 };
-                
-                  
-                
-                
-//                     Lima.getcustph(2,16);
-//                     Lima.getcokkiesph(Lima.avg);
-//                     Lima.render();
-
-
-
-
-
-
+createTableHeader();
+for (let i = 0; i < shops.length; i++) {
+    shops[i].calcRandCustPerH();
+    shops[i].calAvgCookiesPerH();
+    shops[i].render();
+}
+createFooter();
 
 
