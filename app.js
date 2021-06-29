@@ -240,6 +240,7 @@ Paris.render();
 
 
 
+
 let lima = {
     shopName: 'lima',
     minc: 11,
@@ -282,6 +283,9 @@ let lima = {
     }
 }
 
+
 lima.calcRandCustPerH();
 lima.calAvgCookiesPerH();
 lima.render();
+
+
