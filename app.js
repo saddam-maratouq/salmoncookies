@@ -4,29 +4,29 @@ let container = document.getElementById('container');
 let tableEl = document.createElement('table');
 container.appendChild(tableEl);
 
-let shops = [];
+let Location = [];
 function Shop(shopName, min, max, avg) {
     this.shopName = shopName;
     this.minc = min;
     this.maxc = max;
-    this.avgCookies = avg;
-    this.randCusts = [];
-    this.avgCookiesPerH = [];
-    this.total = 0;
-    shops.push(this);
+    this.avgcook = avg;
+    this.randC = [];
+    this.Avgpehour = [];
+    this.Amount = 0;
+    Location.push(this);
 }
-Shop.prototype.calcRandCustPerH = function () {
+Shop.prototype.calcRcust = function () {
     for (let i = 0; i < hours.length; i++) {
         let min = Math.ceil(this.minc);
         let max = Math.floor(this.maxc);
         let randCust = Math.floor(Math.random() * (max - min + 1) + min);
-        this.randCusts.push(randCust);
+        this.randC.push(randCust);
     }
 }
 Shop.prototype.calAvgCookiesPerH = function () {
     for (let i = 0; i < hours.length; i++) {
-        this.avgCookiesPerH[i] = Math.ceil(this.randCusts[i] * this.avgCookies);
-        this.total = this.total + this.avgCookiesPerH[i];
+        this.Avgpehour[i] = Math.ceil(this.randC[i] * this.avgcook);
+        this.Amount = this.Amount + this.Avgpehour[i];
     }
 }
 Shop.prototype.render = function () {
@@ -36,11 +36,11 @@ Shop.prototype.render = function () {
     trEl.appendChild(tdEl);
     for (let i = 0; i < hours.length; i++) {
         let tdEl = document.createElement('td');
-        tdEl.textContent = this.avgCookiesPerH[i];
+        tdEl.textContent = this.Avgpehour[i];
         trEl.appendChild(tdEl);
     }
     let tdTotalEl = document.createElement('td');
-    tdTotalEl.textContent = this.total;
+    tdTotalEl.textContent = this.Amount;
     trEl.appendChild(tdTotalEl);
     tableEl.appendChild(trEl);
 
@@ -73,9 +73,9 @@ function createFooter() {
         let tdEl = document.createElement('td');
         let sum = 0;
         
-        for (let s = 0; s < shops.length; s++) {
+        for (let s = 0; s < Location.length; s++) {
             
-            sum = sum + shops[s].avgCookiesPerH[h];
+            sum = sum + Location[s].Avgpehour[h];
         }
         megaTotal += sum;
         tdEl.textContent = sum;
@@ -92,10 +92,10 @@ let paris = new Shop('Paris', 20, 38, 2.3);
 let lima = new Shop('Lima', 2, 16, 4.6);
 
 createTableHeader();
-for (let i = 0; i < shops.length; i++) {
-    shops[i].calcRandCustPerH();
-    shops[i].calAvgCookiesPerH();
-    shops[i].render();
+for (let i = 0; i < Location.length; i++) {
+    Location[i].calcRcust();
+    Location[i].calAvgCookiesPerH();
+    Location[i].render();
 }
 createFooter();
 
