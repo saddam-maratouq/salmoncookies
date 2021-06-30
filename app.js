@@ -4,7 +4,7 @@ let container = document.getElementById('container');
 let tableEl = document.createElement('table');
 container.appendChild(tableEl);
 
-let Location = [];
+let supermarket = [];
 function Shop(shopName, min, max, avg) {
     this.shopName = shopName;
     this.minc = min;
@@ -13,7 +13,7 @@ function Shop(shopName, min, max, avg) {
     this.randC = [];
     this.Avgpehour = [];
     this.Amount = 0;
-    Location.push(this);
+    supermarket.push(this);
 }
 Shop.prototype.calcRcust = function () {
     for (let i = 0; i < hours.length; i++) {
@@ -58,7 +58,7 @@ function createTableHeader() {
     }
     let thDailyTotalEl = document.createElement('th')
     trEl.appendChild(thDailyTotalEl);
-    thDailyTotalEl.textContent = 'Daily Location Total';
+    thDailyTotalEl.textContent = 'Daily shop Total';
     tableEl.appendChild(trEl);
 }
 function createFooter() {
@@ -73,9 +73,9 @@ function createFooter() {
         let tdEl = document.createElement('td');
         let sum = 0;
         
-        for (let s = 0; s < Location.length; s++) {
+        for (let s = 0; s < supermarket.length; s++) {
             
-            sum = sum + Location[s].Avgpehour[h];
+            sum = sum + supermarket[s].Avgpehour[h];
         }
         megaTotal += sum;
         tdEl.textContent = sum;
@@ -92,14 +92,36 @@ let paris = new Shop('Paris', 20, 38, 2.3);
 let lima = new Shop('Lima', 2, 16, 4.6);
 
 createTableHeader();
-for (let i = 0; i < Location.length; i++) {
-    Location[i].calcRcust();
-    Location[i].calAvgCookiesPerH();
-    Location[i].render();
+for (let i = 0; i < supermarket.length; i++) {
+    supermarket[i].calcRcust();
+    supermarket[i].calAvgCookiesPerH();
+    supermarket[i].render();
 }
 createFooter();
 
 
-lima.calcRandCustPerH();
-lima.calAvgCookiesPerH();
-lima.render();
+
+
+//////////////////////////////////////////////////////////////////
+
+
+let store = document.getElementById('store')
+let divContainer = document.getElementById('container');
+store.addEventListener('submit',addstore)
+function addstore(event){
+   
+    event.preventDefault();
+
+let shopName=event.target.shopName.value
+let minOrder=event.target.minOrder.value
+let maxOrder=event.target.maxOrder.value
+let AvaregeSales=event.target.AvaregeSales.value
+
+let  news= new Shop(shopName, minOrder,maxOrder,AvaregeSales)
+
+news.calcRcust();
+news.calAvgCookiesPerH();
+news.render();
+
+}
+
