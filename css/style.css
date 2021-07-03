@@ -1,5 +1,184 @@
+ 
 
-boudy{
-    background-color: brown;
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@1,800&display=swap');
+
+body{
+    background-color:#125D98
 }
 
+
+main{
+animation-name:changebackground ;
+animation-duration: 12s ;
+animation-iteration-count: infinite ;
+
+
+
+}
+@keyframes changebackground{
+    0%{
+        background-color:#125D98
+    }
+    25%{
+        background-color:#FFC107
+    }
+    50%{
+        background-color:#346751
+    }
+    100%{
+        background-color: red; 
+    }
+}
+
+
+
+
+
+header{
+    background-color:gray;
+height: 70px;
+padding: 10px;
+
+}
+     
+
+header nav {
+    position: relative;
+    left: 278px;
+    top: 28px;
+    font-size: 40px;
+    word-spacing:30vh;
+
+
+    
+
+
+}
+
+ header li{
+padding-left: 20px;
+display: inline; 
+
+right: 50%; 
+position: relative;
+    right: 291px;
+
+}
+  
+
+
+#an{
+    text-decoration: none;
+color:black;
+font-size: 60px;
+margin: 3%;
+padding-top: 2px;
+position: relative;
+top: 70%;
+ left:64px;
+font-family: 'Tourney', cursive;
+
+}
+h1{
+
+    font-size: 70px; margin-left: 7%;  width: 40%;
+
+}
+
+#an{
+    text-decoration: none;
+    font-size: 50px;
+    font-family: 'Tourney', cursive;
+    position: relative;
+    right: 21%;
+    color: white;
+}
+
+#f{
+
+    margin-left: 21%;
+    width: 50%;
+}
+
+#w{
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+#open{
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#o{
+    text-align: center;
+    width: 83%;
+    font-size: 40px;
+    padding-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+     background: #7e4a35 
+
+
+}
+
+#our{
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+     background: #588c7e
+     
+}
+
+#loc{
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+    word-spacing: 133px;
+     
+}
+
+table, 
+th,
+td{
+border: 7px solid rgb(11, 12, 9);
+}
+
+
+
+#big{
+    top: 2%;
+    font: 70px;
+    text-align: end;
+    position: absolute;
+    left: 40%; 
+    font-family: 'Tourney', cursive;
+
+    color: white;
+    
+}
+
+#store{
+font-size: 25px;
+    left: 3%;
+    padding-top: 200px;
+    margin-block: -33px;
+    position: relative;
+    width: 80%
+}
+
+hr{
+    background-color: white;
+    height: 30%;
+}
+
+#last{
+font-size: 30px;
+text-align: center;
+
+}
