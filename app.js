@@ -61,8 +61,9 @@ function createTableHeader() {
     thDailyTotalEl.textContent = 'Daily shop Total';
     tableEl.appendChild(trEl);
 }
+let tfootEl = document.createElement('tfoot');
+
 function createFooter() {
-    let tfootEl = document.createElement('tfoot');
     let tdEl = document.createElement('td');
     tdEl.textContent = 'Totals';
     tfootEl.appendChild(tdEl);
@@ -96,12 +97,12 @@ for (let i = 0; i < supermarket.length; i++) {
     supermarket[i].calcRcust();
     supermarket[i].calAvgCookiesPerH();
     supermarket[i].render();
+   
 }
-createFooter();
 
 
 
-
+createFooter(); 
 //////////////////////////////////////////////////////////////////
 
 
@@ -115,13 +116,26 @@ function addstore(event){
 let shopName=event.target.shopName.value
 let minOrder=event.target.minOrder.value
 let maxOrder=event.target.maxOrder.value
+
 let AvaregeSales=event.target.AvaregeSales.value
+
+
 
 let  news= new Shop(shopName, minOrder,maxOrder,AvaregeSales)
 
 news.calcRcust();
 news.calAvgCookiesPerH();
+
 news.render();
 
+ tfootEl.textContent=null;
+
+createFooter(); 
+
 }
+
+
+
+
+
 
